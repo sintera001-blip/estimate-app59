@@ -1788,15 +1788,17 @@ function renderCalendar() {
     ? `<div class="empty">読み込み中…</div>`
     : selEvents.length
       ? selEvents.map(ev => `
-          <div class="cal-event-card">
-            <div class="cal-event-title">${escapeHtml(ev.title)}</div>
-            <div class="cal-event-meta">
-              ${ev.allDay ? '終日' : (ev.startTime + ' 〜 ' + ev.endTime)}
-              ${ev.location ? ' ／ 📍' + escapeHtml(ev.location) : ''}
+          <div class="cal-event-card" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <div style="flex:1;min-width:0;">
+              <div class="cal-event-title">${escapeHtml(ev.title)}</div>
+              <div class="cal-event-meta">
+                ${ev.allDay ? '終日' : (ev.startTime + ' 〜 ' + ev.endTime)}
+                ${ev.location ? ' ／ 📍' + escapeHtml(ev.location) : ''}
+              </div>
             </div>
-            <div class="cal-event-actions">
-              <button onclick="openCalEditModal(${JSON.stringify(ev).replace(/"/g,'&quot;')})">✏️ 編集</button>
-              <button class="del-btn" onclick="deleteCalEvent('${escapeHtml(ev.id)}','${escapeHtml(ev.title)}')">🗑️ 削除</button>
+            <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0;">
+              <button onclick="openCalEditModal(${JSON.stringify(ev).replace(/"/g,'&quot;')})" style="padding:5px 10px;font-size:12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;white-space:nowrap;">✏️</button>
+              <button onclick="deleteCalEvent('${escapeHtml(ev.id)}','${escapeHtml(ev.title)}')" style="padding:5px 10px;font-size:12px;border-radius:8px;border:1px solid var(--danger-bg);background:var(--danger-bg);color:var(--danger);cursor:pointer;white-space:nowrap;">🗑️</button>
             </div>
           </div>`).join('')
       : calSelectedDate
