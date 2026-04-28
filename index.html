@@ -1797,8 +1797,8 @@ function renderCalendar() {
               </div>
             </div>
             <div style="display:flex;flex-direction:row;gap:6px;flex-shrink:0;">
-              <button onclick="openCalEditModal(${JSON.stringify(ev).replace(/"/g,'&quot;')})" style="padding:5px 10px;font-size:12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;white-space:nowrap;">編集</button>
-              <button onclick="deleteCalEvent('${escapeHtml(ev.id)}','${escapeHtml(ev.title)}')" style="padding:5px 10px;font-size:12px;border-radius:8px;border:1px solid var(--danger-bg);background:var(--danger-bg);color:var(--danger);cursor:pointer;white-space:nowrap;">削除</button>
+              <button onclick="openCalEditModal(${JSON.stringify(ev).replace(/"/g,'&quot;')})" style="padding:5px 10px;font-size:12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;">編集</button>
+              <button onclick="deleteCalEvent('${escapeHtml(ev.id)}','${escapeHtml(ev.title)}')" style="padding:5px 10px;font-size:12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--danger);cursor:pointer;white-space:nowrap;">削除</button>
             </div>
           </div>`).join('')
       : calSelectedDate
