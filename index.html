@@ -959,6 +959,8 @@ function renderHistory() {
 
 // ---- PDF種別選択モーダル ----
 function showPdfTypeModal() {
+  // PDF出力前にドラフト保存してデータを維持
+  saveDraft();
   // 既存モーダルがあれば削除
   const existing = document.getElementById('pdf-type-modal');
   if (existing) existing.remove();
@@ -1107,18 +1109,22 @@ function printEstimate(docType) {
     </div>`;
 
   // お客様サイン（契約書のみ）
+  const payParkLabel = [d.payment ? '支払：' + d.payment : '', d.parking ? '駐車：' + d.parking : ''].filter(Boolean).join('　');
+
   const signBlock = (isContract && d.customerSign) ? `
     <div style="width:360px;flex-shrink:0;border:1px solid #d1d5db;border-radius:10px;padding:8px 12px;background:#fff;">
+      ${payParkLabel ? `<div style="font-size:11px;color:#374151;margin-bottom:6px;font-weight:600;">${payParkLabel}</div>` : ''}
       <div style="font-size:10px;color:#6b7280;margin-bottom:4px;font-weight:600;letter-spacing:.04em;">お客様サイン</div>
-      <div style="height:55px;overflow:hidden;">
+      <div style="height:90px;overflow:hidden;">
         <img src="${d.customerSign}" style="width:100%;height:100%;object-fit:contain;object-position:left center;display:block;" alt="お客様サイン">
       </div>
       <div style="font-size:9px;color:#9ca3af;margin-top:3px;">署名日：${new Date().toLocaleDateString('ja-JP')}</div>
     </div>` : '';
 
-  // 備考ボックス
+  // 備考ボックス（見積書の場合は支払・駐車を左上に追加）
   const notesBlock = `
     <div style="border:1px solid #e5e7eb;border-radius:10px;padding:14px;min-height:60px;background:#fafafa;flex:1;min-width:0;">
+      ${!isContract && payParkLabel ? `<div style="font-size:11px;color:#374151;margin-bottom:6px;font-weight:600;">${payParkLabel}</div>` : ''}
       <div style="font-size:10px;color:#9ca3af;margin-bottom:6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;">備考</div>
       <div style="font-size:12.5px;color:#374151;">${d.notes ? d.notes.replace(/\n/g,'<br>') : '特記事項がある場合はこちらに記載します。'}</div>
     </div>`;
@@ -1265,7 +1271,7 @@ function printEstimate(docType) {
       @page{size:A4 portrait;margin:8mm 10mm;}
       body{background:#fff;padding:0;}
       .actionbar{display:none;}
-      .sheet{border-radius:0;box-shadow:none;padding:0;max-width:none;display:flex;flex-direction:column;}
+      .sheet{border-radius:0;box-shadow:none;padding:0;max-width:none;min-height:267mm;display:flex;flex-direction:column;}
     }
   </style>
   </head>
@@ -1336,9 +1342,14 @@ function printEstimate(docType) {
       <tbody>${rows}</tbody>
     </table></div>
 
-    <!-- 合計＋サイン＋備考（明細直後・横並び） -->
-    <div class="totals-area">
-      ${signInTotals}
+    <!-- 合計 -->
+    <div class="totals-area" style="margin-top:auto;">
+      ${totalsHtml}
+    </div>
+    <!-- サイン＋備考（A4下部） -->
+    <div style="display:flex;gap:12px;align-items:stretch;">
+      ${signBlock}
+      ${notesBlock}
     </div>
 
   </div>
