@@ -1,4 +1,4 @@
-Unpublishing<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -20,26 +20,30 @@ Unpublishing<!DOCTYPE html>
     --text: #202124;
     --muted: #5f6368;
     --hint: #9aa0a6;
-    --bg: #f8f9fa;
+    --bg: #ffffff;
     --card: #ffffff;
     --radius: 12px;
     --radius-sm: 8px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --primary: #8ab4f8;
-      --primary-bg: #1a2744;
-      --border: #3c4043;
-      --text: #e8eaed;
-      --muted: #9aa0a6;
-      --hint: #5f6368;
-      --bg: #202124;
-      --card: #292a2d;
+      --primary: #1a73e8;
+      --primary-bg: #e8f0fe;
+      --danger: #d93025;
+      --danger-bg: #fce8e6;
+      --success: #188038;
+      --success-bg: #e6f4ea;
+      --border: #e0e0e0;
+      --text: #202124;
+      --muted: #5f6368;
+      --hint: #9aa0a6;
+      --bg: #ffffff;
+      --card: #ffffff;
     }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body { height: 100%; }
-  body { font-family: -apple-system, 'Helvetica Neue', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; }
+  body { font-family: -apple-system, 'Helvetica Neue', sans-serif; background: #ffffff; color: var(--text); font-size: 16px; }
 
   /* Layout */
   .app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
@@ -142,22 +146,6 @@ Unpublishing<!DOCTYPE html>
   .sign-actions { display:flex; gap:8px; margin-top:8px; }
   .sign-done-badge { display:inline-flex; align-items:center; gap:5px; font-size:13px; color:var(--success); font-weight:600; padding:6px 12px; background:var(--success-bg); border-radius:999px; }
 
-  /* ---- AI画像読み込み ---- */
-  .ai-filled { background: #fffde7 !important; border-color: #f9a825 !important; box-shadow: 0 0 0 2px rgba(249,168,37,0.25) !important; transition: background 0.4s, border-color 0.4s; }
-  .ai-filled-item { background: #fff8e1 !important; border-color: #f9a825 !important; box-shadow: 0 0 0 2px rgba(249,168,37,0.20) !important; }
-  .ai-scan-modal { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:10000; display:flex; align-items:flex-end; justify-content:center; }
-  .ai-scan-sheet { background:var(--card); border-radius:20px 20px 0 0; padding:24px 20px 40px; width:100%; max-width:480px; box-shadow:0 -4px 24px rgba(0,0,0,0.18); }
-  .ai-scan-title { font-size:16px; font-weight:700; margin-bottom:6px; }
-  .ai-scan-sub { font-size:13px; color:var(--muted); margin-bottom:20px; }
-  .ai-scan-btns { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
-  .ai-scan-btn { display:flex; flex-direction:column; align-items:center; gap:8px; padding:18px 10px; border:1px solid var(--border); border-radius:14px; background:var(--bg); cursor:pointer; font-size:14px; font-weight:600; color:var(--text); }
-  .ai-scan-btn svg { width:32px; height:32px; color:var(--primary); }
-  .ai-scan-btn:active { background:var(--primary-bg); }
-  .ai-scan-preview { width:100%; max-height:200px; object-fit:contain; border-radius:10px; margin-bottom:12px; display:none; }
-  .ai-scan-loading { display:none; flex-direction:column; align-items:center; gap:10px; padding:20px 0; }
-  .ai-scan-spinner { width:36px; height:36px; border:3px solid var(--border); border-top-color:var(--primary); border-radius:50%; animation:spin .8s linear infinite; }
-  .ai-scan-result { display:none; background:var(--success-bg); border:1px solid var(--success); border-radius:10px; padding:12px 14px; margin-bottom:12px; font-size:13px; color:var(--success); font-weight:600; }
-  @keyframes spin { to { transform:rotate(360deg); } }
 
   /* ---- カレンダータブ ---- */
   .cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
@@ -187,6 +175,26 @@ Unpublishing<!DOCTYPE html>
   .cal-modal-bg { position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:10000; display:flex; align-items:flex-end; justify-content:center; }
   .cal-modal { background:var(--card); border-radius:20px 20px 0 0; padding:24px 20px 40px; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; }
   .cal-modal-title { font-size:16px; font-weight:700; margin-bottom:16px; }
+
+  /* カレンダー表示調整：予定の有無に関係なく日付枠サイズを固定 */
+  .cal-day { height:64px; min-height:64px; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-start; }
+  .cal-day-num { line-height:16px; height:16px; }
+  .cal-day .cal-dot { flex:0 0 auto; }
+
+  /* カレンダー詳細・編集メニューを大きめに表示 */
+  .cal-event-card { padding:16px 18px; border-radius:14px; }
+  .cal-event-title { font-size:18px; line-height:1.35; }
+  .cal-event-meta { font-size:15px; line-height:1.5; }
+  .cal-event-desc { font-size:15px; line-height:1.6; }
+  .cal-event-actions button { padding:12px; font-size:15px; }
+  .cal-modal-bg { align-items:center; padding:14px; }
+  .cal-modal { max-width:900px; width:min(900px, 100%); border-radius:22px; padding:32px 28px 36px; max-height:94vh; }
+  .cal-modal-title { font-size:24px; margin-bottom:22px; }
+  .cal-modal label { font-size:16px; margin-bottom:8px; }
+  .cal-modal input[type=text], .cal-modal input[type=date], .cal-modal input[type=time], .cal-modal textarea { font-size:20px; padding:15px 16px; border-radius:12px; }
+  .cal-modal textarea { min-height:320px; line-height:1.6; resize:vertical; }
+  .cal-modal .btn, .cal-modal .btn-primary, .cal-modal .btn-secondary { font-size:18px; padding:16px 20px; }
+
 </style>
 </head>
 <body>
@@ -279,6 +287,20 @@ function clearEditingState() {
   editingRecordSource = '';
 }
 
+function normalizeWorkTimeValue(v) {
+  const s = String(v || '').trim();
+  return (s === '-' || s === '－' || s === '—') ? '' : s;
+}
+function splitWorkTimeValue(v) {
+  const s = normalizeWorkTimeValue(v);
+  if (!s) return ['', ''];
+  const parts = s.split(/[〜~～\-–]/);
+  return [(parts[0] || '').trim(), (parts[1] || '').trim()];
+}
+function defaultTimeOnInput(el) {
+  if (el && !el.value) el.value = '09:00';
+}
+
 function saveDraft() {
   const fields = ['client','clientAddress','serviceClient','serviceAddress',
                   'phone','email','staff','workDate','expiry','notes'];
@@ -289,7 +311,7 @@ function saveDraft() {
   // 作業時間：ダイヤル2つから合成
   const ws = (document.getElementById('workTimeStart')||{}).value || '';
   const we = (document.getElementById('workTimeEnd')  ||{}).value || '';
-  draftState.workTime = (ws && we) ? ws + '〜' + we : (ws || we);
+  draftState.workTime = (ws && we) ? ws + '〜' + we : (ws || we || '');
   // 支払方法
   draftState.payment = ['現金','振込','カード','その他'].filter(v => {
     const el = document.getElementById('pay_' + v); return el && el.checked;
@@ -367,7 +389,8 @@ function renderForm() {
   const savedEmail         = pick('email');
   const savedStaff         = pick('staff');
   const savedWorkDate      = pick('workDate');
-  const savedWorkTime      = draftState.workTime || '';
+  const savedWorkTime      = normalizeWorkTimeValue(draftState.workTime || '');
+  const savedWorkTimeParts = splitWorkTimeValue(savedWorkTime);
   const savedExpiry        = pick('expiry');
   const savedNotes         = pick('notes');
   const savedPayment       = draftState.payment  || '';
@@ -376,39 +399,30 @@ function renderForm() {
   c.innerHTML = `
     ${getEditStatusHtml()}
     <div class="card">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div>
-          <div style="font-size:14px;font-weight:700;color:#7c3aed;margin-bottom:2px;">📷 画像から自動入力</div>
-          <div style="font-size:12px;color:var(--muted);">写真・書類を読み取って項目を自動入力します</div>
-        </div>
-        <button class="btn btn-primary" onclick="openAiScanModal()" style="width:auto;padding:10px 18px;font-size:14px;background:linear-gradient(135deg,#7c3aed,#5b21b6);flex-shrink:0;">読み込む</button>
-      </div>
-    </div>
-    <div class="card">
       <div class="card-title">基本情報</div>
-      <div class="field"><label>ご契約お客様名</label><input type="text" id="client" placeholder="ご契約お客様名" value="${savedClient}"></div>
-      <div class="field"><label>ご契約お客様住所</label><input type="text" id="clientAddress" placeholder="ご契約先住所を入力" value="${savedClientAddress}"></div>
-      <div class="field"><label>サービス先お客様名</label><input type="text" id="serviceClient" placeholder="サービス提供先名を入力" value="${savedServiceClient}"></div>
-      <div class="field"><label>サービス先住所</label><input type="text" id="serviceAddress" placeholder="サービス先住所を入力" value="${savedServiceAddress}"></div>
+      <div class="field"><label>ご契約お客様名</label><input type="text" id="client" placeholder="ご契約お客様名" value="${escapeHtml(savedClient)}"></div>
+      <div class="field"><label>ご契約お客様住所</label><input type="text" id="clientAddress" placeholder="ご契約先住所を入力" value="${escapeHtml(savedClientAddress)}"></div>
+      <div class="field"><label>サービス先お客様名</label><input type="text" id="serviceClient" placeholder="サービス提供先名を入力" value="${escapeHtml(savedServiceClient)}"></div>
+      <div class="field"><label>サービス先住所</label><input type="text" id="serviceAddress" placeholder="サービス先住所を入力" value="${escapeHtml(savedServiceAddress)}"></div>
       <div class="row2">
-        <div class="field"><label>電話番号</label><input type="text" id="phone" placeholder="09012345678 または 090-1234-5678" value="${savedPhone}"><div style="margin-top:6px;font-size:12px;color:var(--muted);">
+        <div class="field"><label>電話番号</label><input type="text" id="phone" placeholder="09012345678 または 090-1234-5678" value="${escapeHtml(savedPhone)}"><div style="margin-top:6px;font-size:12px;color:var(--muted);">
           <a id="phone-link" href="${savedPhone ? 'tel:' + String(savedPhone).replace(/[^\d+]/g,'') : '#'}" style="color:var(--primary);text-decoration:none;pointer-events:${savedPhone ? 'auto' : 'none'};opacity:${savedPhone ? '1' : '.5'};">電話をかける</a>
         </div></div>
-        <div class="field"><label>見積担当者</label><input type="text" id="staff" placeholder="担当者名を入力" value="${savedStaff}"></div>
+        <div class="field"><label>見積担当者</label><input type="text" id="staff" placeholder="担当者名を入力" value="${escapeHtml(savedStaff)}"></div>
       </div>
       <div class="row2">
-        <div class="field"><label>作業日</label><input type="date" id="workDate" value="${savedWorkDate}"></div>
+        <div class="field"><label>作業日</label><input type="date" id="workDate" value="${escapeHtml(savedWorkDate)}"></div>
         <div class="field"><label>作業時間</label>
           <div style="display:flex;align-items:center;gap:6px;">
-            <input type="time" id="workTimeStart" value="${savedWorkTime ? savedWorkTime.split(/[〜~～\-–]/)[0].trim() : ''}" style="flex:1;">
+            <input type="time" id="workTimeStart" value="${escapeHtml(savedWorkTimeParts[0])}" onfocus="defaultTimeOnInput(this)" onclick="defaultTimeOnInput(this)" onpointerdown="defaultTimeOnInput(this)" style="flex:1;">
             <span style="color:var(--muted);font-size:13px;">〜</span>
-            <input type="time" id="workTimeEnd" value="${savedWorkTime ? (savedWorkTime.split(/[〜~～\-–]/)[1] || '').trim() : ''}" style="flex:1;">
+            <input type="time" id="workTimeEnd" value="${escapeHtml(savedWorkTimeParts[1])}" onfocus="defaultTimeOnInput(this)" onclick="defaultTimeOnInput(this)" onpointerdown="defaultTimeOnInput(this)" style="flex:1;">
           </div>
         </div>
       </div>
       <div class="row2">
-        <div class="field"><label>メールアドレス</label><input type="text" id="email" placeholder="example@example.com" value="${savedEmail}"><div style="margin-top:6px;font-size:12px;color:var(--muted);"><a id="copy-email-link" href="#" onclick="return copyEmailAddress(event)" style="color:var(--primary);text-decoration:none;pointer-events:${savedEmail ? 'auto' : 'none'};opacity:${savedEmail ? '1' : '.5'};">コピー</a></div></div>
-        <div class="field"><label>有効期限</label><input type="date" id="expiry" value="${savedExpiry}"></div>
+        <div class="field"><label>メールアドレス</label><input type="text" id="email" placeholder="example@example.com" value="${escapeHtml(savedEmail)}"><div style="margin-top:6px;font-size:12px;color:var(--muted);"><a id="copy-email-link" href="#" onclick="return copyEmailAddress(event)" style="color:var(--primary);text-decoration:none;pointer-events:${savedEmail ? 'auto' : 'none'};opacity:${savedEmail ? '1' : '.5'};">コピー</a></div></div>
+        <div class="field"><label>有効期限</label><input type="date" id="expiry" value="${escapeHtml(savedExpiry)}"></div>
       </div>
     </div>
 
@@ -439,7 +453,7 @@ function renderForm() {
 
     <div class="card">
       <div class="card-title">備考・メモ</div>
-      <textarea id="notes" placeholder="支払条件、納期など">${savedNotes}</textarea>
+      <textarea id="notes" placeholder="支払条件、納期など">${escapeHtml(savedNotes)}</textarea>
     </div>
 
     <div class="card">
@@ -500,13 +514,13 @@ function renderItems() {
   list.innerHTML = items.map((item, idx) => `
     <div class="item-card">
       <div class="item-top">
-        <input type="text" placeholder="品名" value="${item.name}" oninput="updateItem(${idx},'name',this.value)" style="flex:1">
+        <input type="text" placeholder="サービスメニュー" value="${escapeHtml(item.name)}" oninput="updateItem(${idx},'name',this.value)" style="flex:1">
         <button class="btn-del" onclick="removeItem(${idx})">×</button>
       </div>
-      <div class="field" style="margin:0 0 8px 0"><label>サービス箇所</label><input type="text" value="${item.place || ''}" oninput="updateItem(${idx},'place',this.value)"></div>
+      <div class="field" style="margin:0 0 8px 0"><label>サービス箇所</label><input type="text" value="${escapeHtml(item.place || '')}" oninput="updateItem(${idx},'place',this.value)"></div>
       <div class="item-nums">
-        <div class="field" style="margin:0"><label>数量</label><input type="number" min="0" step="1" value="${item.qty}" oninput="updateItem(${idx},'qty',this.value)"></div>
-        <div class="field" style="margin:0"><label>単価（税込）</label><input type="number" min="0" step="1" value="${item.price || ''}" oninput="updateItem(${idx},'price',this.value)"></div>
+        <div class="field" style="margin:0"><label>数量</label><input type="number" min="0" step="1" value="${escapeHtml(item.qty)}" oninput="updateItem(${idx},'qty',this.value)"></div>
+        <div class="field" style="margin:0"><label>単価（税込）</label><input type="number" min="0" step="1" value="${escapeHtml(item.price || '')}" oninput="updateItem(${idx},'price',this.value)"></div>
       </div>
       <div class="item-subtotal">${fmt(item.qty * item.price)}</div>
     </div>
@@ -641,6 +655,8 @@ function normalizeLoadedEstimate(est) {
     no: est.no || est.estimate_no || '',
     expiry: toDateInput(est.expiry || est.expiry_date || est['有効期限'] || ''),
     notes: est.notes || '',
+    payment: est.payment || est['支払方法'] || est.payment_method || '',
+    parking: est.parking || est['駐車方法'] || est.parking_method || '',
     subtotal: Number(est.subtotal || 0),
     tax: Number(est.tax || 0),
     grandTotal: total,
@@ -653,7 +669,7 @@ function normalizeLoadedEstimate(est) {
 function getFormData() {
   const ws = (document.getElementById('workTimeStart')||{}).value || '';
   const we = (document.getElementById('workTimeEnd')  ||{}).value || '';
-  const workTime = (ws && we) ? ws + '〜' + we : (ws || we || draftState.workTime || '');
+  const workTime = (ws && we) ? ws + '〜' + we : (ws || we || '-');
   const payment = ['現金','振込','カード','その他'].filter(v => {
     const el = document.getElementById('pay_' + v); return el && el.checked;
   }).join(',') || draftState.payment || '';
@@ -689,15 +705,16 @@ async function saveEstimate() {
 
   // ── 空データチェック ──────────────────────────────
   // 基本情報がすべて空 かつ 明細が「数量1・金額0のみ」なら保存しない
+  const hasWorkTime = !!(d.workTime && d.workTime !== '-');
   const hasBasicInfo = !!(d.client || d.clientAddress || d.serviceClient ||
                           d.serviceAddress || d.phone || d.email ||
-                          d.staff || d.workDate || d.workTime || d.expiry || d.notes);
+                          d.staff || d.workDate || hasWorkTime || d.expiry || d.notes || d.payment || d.parking);
   const hasItemData = items.some(i => {
     const name  = String(i.name  || '').trim();
     const place = String(i.place || '').trim();
     const price = Number(i.price) || 0;
     const qty   = Number(i.qty)   || 0;
-    // 品名・箇所・金額のいずれかがあれば「データあり」
+    // サービスメニュー・箇所・金額のいずれかがあれば「データあり」
     return name || place || price > 0 || qty > 1;
   });
   if (!hasBasicInfo && !hasItemData) {
@@ -801,6 +818,8 @@ function loadEstimate(id) {
     workTime:      est.workTime || '',
     expiry:        est.expiry || '',
     notes:         est.notes || '',
+    payment:       est.payment || '',
+    parking:       est.parking || '',
     customerSign:  est.customerSign || ''
   };
   // クラウドデータはセル上限でサインが空になっている場合がある
@@ -823,9 +842,15 @@ function loadEstimate(id) {
       updateEmailCopyState();
       document.getElementById('staff').value = draftState.staff;
       document.getElementById('workDate').value = draftState.workDate;
-      document.getElementById('workTime').value = draftState.workTime;
+      const wtParts = splitWorkTimeValue(draftState.workTime || '');
+      const wsEl = document.getElementById('workTimeStart');
+      const weEl = document.getElementById('workTimeEnd');
+      if (wsEl) wsEl.value = wtParts[0] || '';
+      if (weEl) weEl.value = wtParts[1] || '';
       document.getElementById('expiry').value = draftState.expiry;
       document.getElementById('notes').value = draftState.notes;
+      ['現金','振込','カード','その他'].forEach(v => { const el = document.getElementById('pay_' + v); if (el) el.checked = (draftState.payment || '').split(',').map(x=>x.trim()).includes(v); });
+      ['駐車場あり','コンパ','その他'].forEach(v => { const el = document.getElementById('park_' + v); if (el) el.checked = (draftState.parking || '').split(',').map(x=>x.trim()).includes(v); });
       renderItems();
       calcTotals();
       // サイン済みステータス表示（パネルが閉じていても badge を出す）
@@ -1338,7 +1363,7 @@ function printEstimate(docType) {
     <!-- 明細 -->
     <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
     <table class="detail-table" style="min-width:480px;">
-      <thead><tr><th>品名</th><th>サービス箇所</th><th>数量</th><th>単価（税込）</th><th>金額（税込）</th></tr></thead>
+      <thead><tr><th>サービスメニュー</th><th>サービス箇所</th><th>数量</th><th>単価（税込）</th><th>金額（税込）</th></tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
 
@@ -1677,17 +1702,45 @@ async function addToGoogleCalendar() {
   const total = items.reduce((s, i) => s + ((Number(i.qty) || 0) * (Number(i.price) || 0)), 0);
   const subtotal = Math.round(total / 1.1);
 
+  const calendarMenuText = items
+    .filter(i => (String(i.name || '').trim() || String(i.place || '').trim() || Number(i.price || 0) > 0))
+    .map(i => {
+      const name  = String(i.name || '').trim() || '未入力';
+      const place = String(i.place || '').trim();
+      const qty   = Number(i.qty || 0) || 0;
+      const price = Number(i.price || 0) || 0;
+      return '・' + name + (place ? '（' + place + '）' : '') + ' ×' + qty + ' ' + fmt(qty * price);
+    })
+    .join('\n');
+
+  // カレンダー詳細は「S先（サービス先名）」を入れず、備考を一番下に表示する
+  const calendarDescription = [
+    d.client ? 'ご契約お客様名：' + d.client : '',
+    d.clientAddress ? 'ご契約住所：' + d.clientAddress : '',
+    d.serviceAddress ? 'サービス先住所：' + d.serviceAddress : '',
+    d.phone ? '電話番号：' + d.phone : '',
+    d.staff ? '担当者：' + d.staff : '',
+    d.workTime ? '作業時間：' + d.workTime : '',
+    d.payment ? '支払方法：' + d.payment : '',
+    d.parking ? '駐車方法：' + d.parking : '',
+    calendarMenuText ? 'サービスメニュー：\n' + calendarMenuText : '',
+    d.grand ? '税込合計：' + d.grand : '',
+    d.notes ? '備考：\n' + d.notes : ''
+  ].filter(Boolean).join('\n\n');
+
   const payload = {
     action:         'add_calendar',
     client:         d.client        || '',
     clientAddress:  d.clientAddress || '',
-    serviceClient:  d.serviceClient || '',
+    // カレンダー登録時はS先を表示させないため、送信値も空にする
+    serviceClient:  '',
     serviceAddress: d.serviceAddress|| '',
     phone:          d.phone         || '',
     staff:          d.staff         || '',
     workDate:       d.workDate      || '',
     workTime:       d.workTime      || '',
     notes:          d.notes         || '',
+    description:    calendarDescription,
     payment:        d.payment       || '',
     parking:        d.parking       || '',
     subtotal:       subtotal,
@@ -1708,6 +1761,8 @@ async function addToGoogleCalendar() {
     if (data.ok) {
       const timeLabel = data.time && data.time !== '終日' ? data.time : '終日';
       showToast('✅ カレンダーに登録しました（' + data.date + ' ' + timeLabel + '）', 3500);
+      calEvents = [];
+      await loadCalendarEvents(true);
     } else {
       showToast('❌ ' + (data.message || 'カレンダー登録に失敗しました'));
     }
@@ -1901,17 +1956,17 @@ function _openCalModal(ev, isEdit) {
       </div>
       <div id="cm-time-wrap" style="display:${ev.allDay !== false ? 'none' : 'grid'};grid-template-columns:1fr 1fr;gap:10px;">
         <div class="field" style="margin:0"><label>開始時間</label>
-          <input type="time" id="cm-start" value="${ev.startTime || '09:00'}">
+          <input type="time" id="cm-start" value="${ev.startTime || ''}" onfocus="defaultTimeOnInput(this)" onclick="defaultTimeOnInput(this)" onpointerdown="defaultTimeOnInput(this)">
         </div>
         <div class="field" style="margin:0"><label>終了時間</label>
-          <input type="time" id="cm-end" value="${ev.endTime || '17:00'}">
+          <input type="time" id="cm-end" value="${ev.endTime || ''}" onfocus="defaultTimeOnInput(this)" onclick="defaultTimeOnInput(this)" onpointerdown="defaultTimeOnInput(this)">
         </div>
       </div>
       <div class="field"><label>場所</label>
         <input type="text" id="cm-location" value="${escapeHtml(ev.location || '')}" placeholder="住所・場所">
       </div>
       <div class="field"><label>詳細</label>
-        <textarea id="cm-desc" style="min-height:80px">${escapeHtml(ev.description || '')}</textarea>
+        <textarea id="cm-desc" rows="10" style="min-height:320px; line-height:1.6; resize:vertical;" placeholder="詳細内容を入力">${escapeHtml(ev.description || '')}</textarea>
       </div>
       <div style="display:flex;gap:10px;margin-top:4px;">
         <button class="btn btn-primary" onclick="saveCalEvent('${escapeHtml(ev.id || '')}')">
@@ -1946,7 +2001,7 @@ async function saveCalEvent(eventId) {
   if (!title) { showToast('タイトルを入力してください'); return; }
   if (!dateStr) { showToast('日付を入力してください'); return; }
 
-  const workTime = allDay ? '' : (startT + '〜' + endT);
+  const workTime = allDay ? '-' : ((startT && endT) ? startT + '〜' + endT : (startT || endT || '-'));
   const isEdit   = !!eventId;
 
   const payload = {
@@ -2005,230 +2060,6 @@ async function deleteCalEvent(eventId, title) {
 }
 // ===================== /カレンダータブ =====================
 
-// ===================== AI画像読み込み =====================
-let aiScanImageBase64 = '';
-let aiScanImageType  = 'image/jpeg';
-// AI読み込みで設定されたフィールドを追跡
-let aiFilledFields = new Set();
-
-function openAiScanModal() {
-  const existing = document.getElementById('ai-scan-modal');
-  if (existing) existing.remove();
-
-  const modal = document.createElement('div');
-  modal.id = 'ai-scan-modal';
-  modal.className = 'ai-scan-modal';
-  modal.innerHTML = `
-    <div class="ai-scan-sheet" id="ai-scan-sheet">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-        <div class="ai-scan-title">📷 画像から自動入力</div>
-        <button onclick="closeAiScanModal()" style="background:var(--bg);border:none;border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:var(--muted);">×</button>
-      </div>
-      <div class="ai-scan-sub">写真・書類画像を読み取り、見積項目を自動で入力します</div>
-
-      <div style="margin-bottom:16px;">
-        <button class="ai-scan-btn" onclick="aiScanFile()" style="width:100%;flex-direction:row;gap:12px;padding:16px;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
-            <polyline points="21 15 16 10 5 21"/>
-          </svg>
-          画像ファイルを選択して読み込む
-        </button>
-      </div>
-
-      <input type="file" id="ai-file-input" accept="image/*" style="display:none" onchange="aiHandleFile(this)">
-
-      <img id="ai-scan-preview" class="ai-scan-preview">
-
-      <div class="ai-scan-loading" id="ai-scan-loading">
-        <div class="ai-scan-spinner"></div>
-        <div style="font-size:14px;color:var(--muted);">AIが画像を解析中…</div>
-      </div>
-
-      <div class="ai-scan-result" id="ai-scan-result"></div>
-
-      <button id="ai-scan-exec-btn" onclick="aiRunScan()" style="display:none;width:100%;padding:13px;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px;">
-        ✨ この画像で読み込む
-      </button>
-      <button onclick="closeAiScanModal()" style="display:block;width:100%;padding:12px;background:var(--bg);color:var(--muted);border:1px solid var(--border);border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;">
-        キャンセル
-      </button>
-    </div>`;
-  modal.addEventListener('click', e => { if (e.target === modal) closeAiScanModal(); });
-  document.body.appendChild(modal);
-}
-
-function closeAiScanModal() {
-  const modal = document.getElementById('ai-scan-modal');
-  if (modal) modal.remove();
-  aiScanImageBase64 = '';
-}
-
-function aiScanFile() {
-  document.getElementById('ai-file-input').click();
-}
-
-function aiHandleFile(input) {
-  const file = input.files && input.files[0];
-  if (!file) return;
-  aiScanImageType = file.type || 'image/jpeg';
-  const reader = new FileReader();
-  reader.onload = e => {
-    const dataUrl = e.target.result;
-    // base64部分だけ抽出
-    aiScanImageBase64 = dataUrl.split(',')[1] || '';
-    // プレビュー表示
-    const preview = document.getElementById('ai-scan-preview');
-    if (preview) { preview.src = dataUrl; preview.style.display = 'block'; }
-    const execBtn = document.getElementById('ai-scan-exec-btn');
-    if (execBtn) execBtn.style.display = 'block';
-    const result = document.getElementById('ai-scan-result');
-    if (result) { result.style.display = 'none'; result.textContent = ''; }
-  };
-  reader.readAsDataURL(file);
-}
-
-async function aiRunScan() {
-  if (!aiScanImageBase64) { showToast('画像を選択してください'); return; }
-
-  const loading = document.getElementById('ai-scan-loading');
-  const execBtn = document.getElementById('ai-scan-exec-btn');
-  const resultEl = document.getElementById('ai-scan-result');
-
-  if (loading) loading.style.display = 'flex';
-  if (execBtn) execBtn.style.display = 'none';
-  if (resultEl) { resultEl.style.display = 'none'; resultEl.textContent = ''; }
-
-  const prompt = `この画像から見積書・注文書・名刺・手書きメモなどの情報を読み取り、以下のJSON形式で返してください。
-読み取れない項目は空文字にしてください。itemsは複数行あれば全て含めてください。
-必ずJSONのみを返し、説明文やコードブロック記号は不要です。
-
-{
-  "client": "ご契約お客様名",
-  "clientAddress": "ご契約お客様住所",
-  "phone": "電話番号",
-  "email": "メールアドレス",
-  "items": [
-    { "name": "品名", "qty": 数量(数値), "price": 単価(数値) }
-  ]
-}`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: [
-            { type: 'image', source: { type: 'base64', media_type: aiScanImageType, data: aiScanImageBase64 } },
-            { type: 'text', text: prompt }
-          ]
-        }]
-      })
-    });
-
-    const data = await res.json();
-    const text = (data.content || []).map(b => b.text || '').join('');
-
-    let parsed;
-    try {
-      const clean = text.replace(/```json|```/g, '').trim();
-      parsed = JSON.parse(clean);
-    } catch(e) {
-      throw new Error('AIの応答を解析できませんでした');
-    }
-
-    // フォームに反映
-    aiApplyToForm(parsed);
-
-    if (resultEl) {
-      resultEl.style.display = 'block';
-      resultEl.textContent = '✅ 読み取り完了！黄色く色付いた項目をご確認ください。';
-    }
-
-    // モーダルを少し後に閉じる
-    setTimeout(() => closeAiScanModal(), 1800);
-
-  } catch(err) {
-    if (loading) loading.style.display = 'none';
-    if (execBtn) execBtn.style.display = 'block';
-    if (resultEl) {
-      resultEl.style.display = 'block';
-      resultEl.style.background = 'var(--danger-bg)';
-      resultEl.style.borderColor = 'var(--danger)';
-      resultEl.style.color = 'var(--danger)';
-      resultEl.textContent = '❌ 読み取りに失敗しました: ' + err.message;
-    }
-    console.error(err);
-    return;
-  }
-
-  if (loading) loading.style.display = 'none';
-}
-
-function aiApplyToForm(parsed) {
-  // 以前のAI色付けをリセット
-  aiFilledFields.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('ai-filled');
-    // item-card は別途処理
-  });
-  document.querySelectorAll('.ai-filled-item').forEach(el => el.classList.remove('ai-filled-item'));
-  aiFilledFields.clear();
-
-  function setField(id, value) {
-    if (!value && value !== 0) return;
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.value = value;
-    el.classList.add('ai-filled');
-    aiFilledFields.add(id);
-    // draftState も更新
-    if (id in draftState) draftState[id] = String(value);
-  }
-
-  setField('client',        parsed.client        || '');
-  setField('clientAddress', parsed.clientAddress || '');
-  setField('phone',         parsed.phone         || '');
-  setField('email',         parsed.email         || '');
-
-  updatePhoneLink();
-  updateEmailCopyState();
-
-  // 明細
-  if (Array.isArray(parsed.items) && parsed.items.length > 0) {
-    // 既存の空行を置き換え
-    const hasOnlyEmpty = items.length === 1 &&
-      !items[0].name && !items[0].place && !items[0].price;
-    if (hasOnlyEmpty) items = [];
-
-    parsed.items.forEach(it => {
-      items.push({
-        id: Date.now() + Math.random(),
-        name:  String(it.name  || ''),
-        place: String(it.place || ''),
-        qty:   Number(it.qty)  || 1,
-        price: Number(it.price)|| 0
-      });
-    });
-
-    renderItems();
-    calcTotals();
-
-    // AI追加した item-card に色付け
-    setTimeout(() => {
-      const cards = document.querySelectorAll('#items-list .item-card');
-      const startIdx = hasOnlyEmpty ? 0 : cards.length - parsed.items.length;
-      for (let i = startIdx; i < cards.length; i++) {
-        if (cards[i]) cards[i].classList.add('ai-filled-item');
-      }
-    }, 50);
-  }
-}
-// ===================== /AI画像読み込み =====================
 
 // Init
 items = [{ id: 1, name: '', place: '', qty: 1, price: '' }];
@@ -2334,12 +2165,11 @@ function loadEstimateToForm(est) {
   const fields = ['client','clientAddress','serviceClient','serviceAddress','phone','email','staff','workDate','expiry','notes'];
   fields.forEach(k => { const el = document.getElementById(k); if (el) el.value = draftState[k] || ''; });
   // 作業時間をダイヤルに分解してセット
-  const wt = draftState.workTime || '';
-  const wtParts = wt.split(/[〜~～\-–]/);
+  const wtParts = splitWorkTimeValue(draftState.workTime || '');
   const wsEl = document.getElementById('workTimeStart');
   const weEl = document.getElementById('workTimeEnd');
-  if (wsEl) wsEl.value = (wtParts[0] || '').trim();
-  if (weEl) weEl.value = (wtParts[1] || '').trim();
+  if (wsEl) wsEl.value = wtParts[0] || '';
+  if (weEl) weEl.value = wtParts[1] || '';
   // 支払方法・駐車方法チェックボックス復元
   (draftState.payment || '').split(',').forEach(v => { const el = document.getElementById('pay_' + v.trim()); if (el) el.checked = true; });
   (draftState.parking || '').split(',').forEach(v => { const el = document.getElementById('park_' + v.trim()); if (el) el.checked = true; });
